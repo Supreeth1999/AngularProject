@@ -1,0 +1,46 @@
+1. Writing a java code for Oktafilter which should support spring 4 and wicket framework and doesn't support for spring 5 or boot features during implementation.
+2. Understanding spring security logic exist in xml configuration of application and debugging to understand the flow or current security logic exists in our application.
+3. Study Ping Agent identity provider working mechanism how to replace it with Okta.
+4. Identifying the logic of authentication detail source(metadat like Entitlement, costcenter) from LDAP retriving mechanism.
+5. Lots of unused code exist in application which in turn deviates the study of current behaviour of appliaction.
+6. Co-ordination with okta team to configure everything from scratch including onborading the groups creating the request for entitlement group.
+
+
+6. Implemeting spring 4 to spring 5->70+ files and lots of effort on solving compilation error and runtime issues.
+7. xml to java configuration approach.
+
+
+Subject: Update on Challenges Faced and Progress Made During Okta Migration
+
+Dear [Recipient's Name],
+
+I hope this message finds you well. I am writing to provide an update on the challenges our team has encountered during the Okta migration process for our application, along with the positive strides we have made to address these issues.
+
+1. **Java Code for OktaFilter**:
+   One of our primary tasks involved writing Java code for the OktaFilter that supports both Spring 4 and the Wicket framework. Given that the implementation does not support Spring 5 or Boot features, this required us to develop a custom solution that integrates seamlessly with our existing architecture. Despite the complexity, our team successfully created a robust filter that meets these specific requirements.
+
+2. **Understanding Spring Security Logic**:
+   Our application’s security logic, primarily configured through XML, presented a learning curve. We dedicated considerable time to debugging and understanding the current security flow to ensure a smooth transition to Okta. This in-depth analysis enabled us to identify key areas for improvement and ensured that we maintained the integrity of our security protocols during migration.
+
+3. **Studying Ping Agent Identity Provider**:
+   To replace our existing identity provider with Okta, we thoroughly studied the Ping Agent’s working mechanism. This research was crucial in understanding how to replicate and enhance our identity management with Okta. We have successfully mapped out a transition plan that maintains the functionality and security of our application.
+
+4. **Identifying LDAP Authentication Logic**:
+   Another significant challenge was identifying the logic for retrieving authentication details, such as Entitlement and Costcenter metadata, from LDAP. We have now documented the retrieval mechanism and are in the process of ensuring that this logic is seamlessly integrated with Okta.
+
+5. **Dealing with Unused Code**:
+   During our migration efforts, we encountered a substantial amount of unused code within the application. This extraneous code initially deviated our focus from the core behavior of the application. We have since cleaned up the codebase, which has not only streamlined our migration process but also improved overall application performance.
+
+6. **Coordination with Okta Team**:
+   Configuring Okta from scratch involved extensive coordination with their team. This included onboarding groups, creating requests for entitlement groups, and setting up various configurations. The collaboration has been fruitful, and we have successfully established the necessary configurations to support our application's security needs.
+
+Despite these challenges, our team’s dedication and collaborative efforts have ensured steady progress. We are confident that the migration to Okta will enhance our security infrastructure and provide a more streamlined identity management experience.
+
+Thank you for your continued support and understanding. Please let us know if you have any questions or need further information.
+
+Best regards,
+
+[Your Name]  
+[Your Position]  
+[Your Contact Information]
+ 
