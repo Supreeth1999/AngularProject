@@ -43,4 +43,43 @@ Best regards,
 [Your Name]  
 [Your Position]  
 [Your Contact Information]
- 
+ =======================================
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+public class EnvironmentFilter {
+
+    private Properties properties = new Properties();
+
+    public EnvironmentFilter(String environment) {
+        String propertiesFileName = environment.equals("prod") ? "prod.properties" : "non-prod.properties";
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream(propertiesFileName)) {
+            if (input == null) {
+                throw new IOException("Unable to find " + propertiesFileName);
+            }
+            properties.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public String getClientId() {
+        return properties.getProperty("client.id");
+    }
+
+    public String getClientSecret() {
+        return properties.getProperty("client.secret");
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        EnvironmentFilter prodFilter = new EnvironmentFilter("prod");
+        System.out.println("Prod Client ID: " + prodFilter.getClientId());
+        System.out.println("Prod Client Secret: " + prodFilter.getClientSecret());
+
+        EnvironmentFilter nonProdFilter = new EnvironmentFilter("non-prod");
+        System.out.println("Non-Prod Client ID: " + nonProdFilter.getClientId());
+        System.out.println("Non-Prod Client Secret: " + nonProdFilter.getClientSecret());
+    }
+}
