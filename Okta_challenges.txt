@@ -123,3 +123,43 @@ public class ProfileBasedPropertiesLoader {
 }
 ================================
 java -Dprofile=prod -cp your-application.jar ProfileBasedPropertiesLoader
+==========================================================================================================================================
+Subject: Clarification on Entitlements for OCC Application During Okta Migration
+
+Hi Rajeev,
+
+We have observed that the OCC application uses the following sets of entitlements:
+
+- **Set1: Authorities: Groups**
+- **Set2: LDAP roles:** fetched using the attribute "b53occentitlements".
+
+These entitlements are being retrieved from ED using LDAP.
+
+Currently, the OCC application (without Okta changes) retrieves entitlements from ED Prod, which includes both Prod and Non-Prod entitlements. However, during the Okta migration for OCC, we found that Okta Stage does not work with ED Prod and instead syncs with ED Stage.
+
+During this process, we discovered that ED Stage does not have any of the entitlements mentioned above. Therefore, we are being asked to submit a request for the creation of these entitlements in ED Stage and to import the users.
+
+We are good with **Set1**, which are groups, and they have been created in ED Stage. However, for **Set2**, we have observed that it has been created as a group in ED Stage (with "g." as a prefix) and does not have the attribute value "b53occentitlement." (There was no field available in the request to specify this attribute.)
+
+Regarding this, we have a few queries:
+
+1. Do we need to follow any special or specific approach for roles creation (not groups)?
+2. What about the bundle or role where these entitlements are part of members? For example, [examples of roles].
+3. Is there any job that exists to update all references of these entitlements, identifying their membership?
+4. Is there any indicator to confirm these entitlement groups are created in ED Stage?
+5. Is there a validation or confirmation mechanism to prove that an exact mirror copy of ED Prod (Non-Prod entitlements) has been created in ED Stage?
+
+Questions on ED entitlement fetching mechanism existing in OCC for Prod vs. Non-Prod:
+
+1. If there was no ED Stage existing for Non-Prod entitlements, what was the purpose of having the below ED base URL configuration in OCC?
+2. What about the ED URL configuration existing in Non-Prod vs. Prod? Where exactly was "stage" pointing?
+
+Based on these confirmations, we can proceed with the authorization part of the OCC in the Okta migration.
+
+Thank you for your assistance.
+
+Best regards,
+
+[Your Name]  
+[Your Position]  
+[Your Contact Information=============================================================================
