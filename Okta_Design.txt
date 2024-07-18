@@ -1,0 +1,192 @@
+Okta Plan Discussion:
+
+
+1.Entitlements:
+
+Roles:et.rtl.occ.retail, et.rtl.occ.rds,et.rtl.occ.pvt, et.rtl.occ.crdtcntr
+
+Groups:Admin:g.occ_admin, g.occ_DMOfferAdmin
+
+So In order to avoid all these mess 
+9
+we have simple approach:
+
+Set1:
+Set2:
+
+
+2.Design approach:
+
+We have completed Okta 4 steps Implementation in OCC.
+
+Existing OCC application had below two type of security-authentication exists:
+
+1.Admin pages(Admin,DMOfferAdmin)-->Basic username and password authentication.
+
+2.Secure Pages(ACE->OCC,FNA->OCC)-->cleartrust authentication(no login form) using principal request header we are retriving Employee ID.
+
+Pass this Emp ID ->LDAP-> Get authorities.
+
+
+As part of POC we have achieved OCC admin page okta integration.
+
+But the same solution will not be applicable to secure (FNA->OCC) Bcoz of cleartrust integration
+(ClearTrust filter intercepts the request and redirects it to Ping Identity for authentication)
+
+So we should bring one solution which should work for both Admin and secure.
+
+
+
+====================================================
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
+
+public class URLParser {
+
+    public static QueryParams parseUrl(String url) throws UnsupportedEncodingException {
+        Map<String, String> queryParams = new HashMap<>();
+
+        String[] parts = url.split("\\?");
+        if (parts.length > 1) {
+            String query = parts[1];
+            String[] pairs = query.split("&");
+
+            for (String pair : pairs) {
+                String[] keyValue = pair.split("=");
+                String key = URLDecoder.decode(keyValue[0], "UTF-8");
+                String value = URLDecoder.decode(keyValue[1], "UTF-8");
+                queryParams.put(key, value);
+            }
+        }
+
+        return new QueryParams(queryParams.get("code"), queryParams.get("state"));
+    }
+
+    public static void main(String[] args) {
+        try {
+            String url = "http://localhost:9000/occ/redirect-handler?code=trwsdffvghhhbb&state=oktamsomecode";
+            QueryParams params = parseUrl(url);
+            System.out.println(params);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+}
+========================================================================================================
+public class QueryParams {
+    private String code;
+    private String state;
+
+    // Constructor
+    public QueryParams(String code, String state) {
+        this.code = code;
+        this.state = state;
+    }
+
+    // Getters and setters
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "QueryParams{" +
+                "code='" + code + '\'' +
+                ", state='" + state + '\'' +
+                '}';
+    }
+}
+=========================================
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+    <version>4.5.13</version>
+</dependency>
+
+public class QueryParams {
+    private String code;
+    private String state;
+
+    public QueryParams(String code, String state) {
+        this.code = code;
+        this.state = state;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "QueryParams{" +
+                "code='" + code + '\'' +
+                ", state='" + state + '\'' +
+                '}';
+    }
+}
+import org.apache.http.client.utils.URIBuilder;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+public class URLParser {
+
+    public static QueryParams parseUrl(String url) throws URISyntaxException {
+        URI uri = new URI(url);
+        URIBuilder uriBuilder = new URIBuilder(uri);
+
+        String code = uriBuilder.getQueryParams().stream()
+                .filter(param -> "code".equals(param.getName()))
+                .map(param -> param.getValue())
+                .findFirst()
+                .orElse(null);
+
+        String state = uriBuilder.getQueryParams().stream()
+                .filter(param -> "state".equals(param.getName()))
+                .map(param -> param.getValue())
+                .findFirst()
+                .orElse(null);
+
+        return new QueryParams(code, state);
+    }
+
+    public static void main(String[] args) {
+        try {
+            String url = "http://localhost:9000/occ/redirect-handler?code=trwsdffvghhhbb&state=oktamsomecode";
+            QueryParams params = parseUrl(url);
+            System.out.println(params);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+                                   
+
+
