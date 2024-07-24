@@ -1,0 +1,28 @@
+Test Plan:
+1. ACE->FNA->OCC->BCAPS
+2. ACE->OCC->BCAPS
+3. OPEN ADMIN->OCC
+4. OCC Admin functionality
+5. OCC DMOffer Admin
+6. Retail No flow-> 1 appliaion->1 applicant(different product)
+7. Retail No flow-> 1 applicaion -> 2 applicants(different product)
+8. Retail Yes flow-> 1 application-> 1 applicant
+8. Consumer RDS-> verbal->1 application-> 1 applicant
+9. Consumer RDS-> verbal->1 application-> 2 applicants
+10.Consumer RDS-> Electronic >1 application-> 1 applicant
+11.Consumer RDS-> Consumer RDS->1 application-> 2 applicants
+12.Private Bank flow
+13.Add application
+14.Credit limit increase.
+15.occ notes addittion
+16.Balance transfer
+17.special mailing address
+18.Existing customer
+19.New customer
+20.Business Credit card(Retail,RDS,Private,RSflow)
+21.Credit center flow-->need input
+22.Private flow card submission(Add application)
+
+
+
+12. Checking or saving with credit card
