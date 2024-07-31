@@ -186,7 +186,39 @@ public class URLParser {
         }
     }
 }
+====================================================================================================================
+BCAPS MAIL
 
+Hi Team,
+
+
+While working on OCC Okta migration in non prod environment, we observed that Okta stage syncs with ED Stage to retrieve entitlements.
+During this process, it became evident that ED Stage does not have the necessary entitlements. As a result, we have been requested 
+to submit a request for the creation of these entitlements in ED Stage and to import/mirror the users accordingly.
+
+Following the creation of the new entitlements/roles in ED Stage.
+
+
+
+We also observed that these roles are sent to BCAPS with <business channel>.
+
+1. Are we processing these data in BCAPS.
+2. If there is a change in value (et.rtl.occ.retail->g.et.rtl.occ.retail) will it be acceptable to BCAPS?
+3. We have confirmation that these entitlement changes will only be applicable to the non-prod environment
+, meaning that production will remain unchanged (non-prod: g.et.rtl.occ.retail, prod: et.rtl.occ.retail).
+
+Your guidance and insights on these matters would be greatly appreciated.
+
+=========================================================================================================================================
+Hi Rajeev,
+
+As we are planing to go ahead with newly created groups like "g"
+prefix for non prod (where we don't have option now to create entitlements without g. prefix meaning that only "et.rtl.occ.retail").
+Can we have similar new entitlment in production also? meaning that going forward we will be having for both prod and non-prod all entitlements with "g." prefix 
+and importing user to the new group.
+
+1.We should make code changes to support profile based entitlement retrieval mechanism in occ to support new entitlement support.
+2.Downstream application also needs to make necessary changes prod vs non prod.
                                    
 
 
