@@ -1,0 +1,14 @@
+Dear Team,
+
+As part of our challenge to onboard the OCC application role such as "et.rtl.occ.*" to Okta, we have created the 
+corresponding role "g.et.rtl.occ.*" in the ED non-prod environment. A request has been submitted to mirror the users
+from the existing ED non-prod role "et.rtl.occ.*" to the newly created "g.et.rtl.occ.*" role in ED non-prod.
+
+Once the user import is complete, we will conduct testing to validate the functionality. 
+Following successful testing, we can proceed with the creation of the "g.et.rtl.occ.*" role in the production environment
+and request to perform the user mirroring task.
+
+Thank you all for your attention and cooperation!
+
+Best regards,
+Supreetha
