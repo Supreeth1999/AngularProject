@@ -1,0 +1,43 @@
+We had 2 different of types Ping Identity provider implementtaion in our applications.
+
+
+1. PingFederate: This IdP was authenticating users and generating security tokens (e.g., SAML, OAuth)
+ that can be used by applications to establish user identity and grant access.
+
+2. Ping Agent applications: PingAccess Agent deployed on a web server might intercept incoming requests and redirect users for authentication.
+Ping Agent is a component that interacts with applications and the Ping Identity platform to enforce policies and manage authentication.
+
+Agents are often used to integrate legacy or third-party applications with Ping Identity services. 
+
+They help extend modern identity capabilities, like OAuth or SAML-based SSO, to applications that do not inherently support these standards.
+Example: OCC,FNA,Open Admin
+
+1. Analysis how occ security part was working?
+
+a.Admin pattern pages: OCC admin page, DMOfferAdmin Page- BasicAuthenticationFilter
+b.Secure pages: FNA->OCC, ACE->OCC.:cleartrust filter: intercept request look for principal request header(CT_REMOTE_USER)->EMP ID->LDAP(retrieve info)
+
+one common custom filter: Oauthidentityiler
+
+To achieve okta authentication we should follow 4 steps:
+1. generation of authorization uri
+2. Authcode exchange
+3. Token validation
+4. fetch Userinfo
+
+
+
+================================================================================================
+Process:
+
+Extract Credentials: The filter checks the Authorization header for the Basic keyword, followed by the base64-encoded username and password.
+Decode Credentials: If the header is present, the filter decodes the base64 string to retrieve the username and password.
+Authentication: The filter then creates a UsernamePasswordAuthenticationToken with the extracted credentials and passes it to the AuthenticationManager.
+AuthenticationManager: The AuthenticationManager (usually using a UserDetailsService) attempts to authenticate the user by verifying the credentials against the user store (e.g., database, in-memory, LDAP).
+Authentication Success: If authentication is successful, the filter sets the Authentication object in the SecurityContext, which allows subsequent filters and application code to recognize the authenticated user.
+Authentication Failure: If authentication fails (e.g., incorrect credentials), the filter responds with a 401 Unauthorized status.
+
+The PRE_AUTH_FILTER refers to the AbstractPreAuthenticatedProcessingFilter or one of its concrete subclasses in Spring Security.
+This filter is part of the pre-authentication mechanism, where the authentication process is externalized to another system, such as a proxy,
+an external authentication service, or a custom filter.
+Spring Security then uses the provided authentication information to authorize access without re-authenticating the user.
