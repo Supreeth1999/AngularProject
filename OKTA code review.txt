@@ -41,3 +41,49 @@ The PRE_AUTH_FILTER refers to the AbstractPreAuthenticatedProcessingFilter or on
 This filter is part of the pre-authentication mechanism, where the authentication process is externalized to another system, such as a proxy,
 an external authentication service, or a custom filter.
 Spring Security then uses the provided authentication information to authorize access without re-authenticating the user.
+
+
+
+
+
+=============================================================================
+Action plans:
+
+As we are not informed there was achnage ticket palnned "" and Level 2 should open bridge for any on call support issue.
+
+
+1. As we see any issue with productions jvms not being in proper status(up/ down) along 
+with notifying level1 team please start a call and try to figure out what is going wrong.
+2. Check splunk/Rassa/putty logs and report it.
+3. If issue didn't resolve for long run follow below steps to open NOC bridge.
+
+4. Please keep application specific information(Ex: CMDB ID, hosted server details,ip details,logs monitor link,codebase etc.) handy which will help us during bridge.
+5.Lets be proactive identifying what change ticket palnned and which functionality will be impacted.
+
+
+
+
+Subject: Summary of On-call Issue - Ozone Application (Date)
+
+Hi Team,
+
+Below is the summary of the on-call issue that occurred yesterday with the Ozone application:
+Ther was firwall changes
+
+Action Plans:
+Proactive Monitoring:
+
+Ensure any issues with production JVMs not being in proper status (up/down) are promptly addressed.
+In addition to notifying the Level 1 team, immediately start a call to investigate the root cause.
+Log Analysis:
+
+Check Splunk, Rassa, and Putty logs, and report your findings.
+Escalation Process:
+
+If the issue remains unresolved for an extended period, follow the steps below to open a NOC bridge.
+Preparedness:
+
+Keep application-specific information (e.g., CMDB ID, hosted server details, IP details, log monitoring links, codebase, etc.) readily available to assist during the bridge call.
+Change Management:
+
+Proactively identify any planned change tickets and assess which functionalities may be impacted.
