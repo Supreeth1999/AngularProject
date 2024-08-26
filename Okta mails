@@ -12,3 +12,29 @@ Thank you all for your attention and cooperation!
 
 Best regards,
 Supreetha
+===================================================
+We would like to take a moment to express our sincere thanks for the invaluable guidance and support you provided during the Okta migration for our legacy applications.
+
+
+We faced numerous challenges throughout this migration. Given that this was the first POC in 5/3, we opted to 
+develop a code-based solution instead of using STRATA, which proved to be neither convenient nor cost-effective.
+We have faced lots of challenges throughout the Okta Migrtaion for legacy applications,Given that this was the first POC in 5/3, we are bring asked to develop
+a code-based solution instead of using STRATA (which is not a convinient solution as i is not cost friendly).
+
+
+The tasks involved in building the Okta solution were complex(Provided that dealing with an application incompatible with the latest lib-aux versions)
+, where everything should build from scratch like 
+okta configuration (We had no reference to show how it was configured in FedPing, making it difficult to replicate the setup in Okta), 
+and implementing all logic without spring mvc concepts, and integrating Okta’s security model with the existing Wicket/XML implementation.
+
+When we initially reached out to you regarding our understanding of the Ping Agent and the POC for the Okta migration, 
+the complexities made it seem like all paths were closed and reaching the finish line felt almost impossible...
+
+You inspired us by telling "Great things always takes time, don't worry, you guys are doing extremely well!! lets not lose the hope we can achieve this!!"
+Your true motivational words inspired us, you have provided constant support, expert technical guidance and knowledge,
+despite of your busy schedule, you were always available to address our queries and to show the right path!
+
+I truly believe that your guidance and encouragement enlightened our ways and inspired us to accomplish this project! it has been a privilege to work alongside 
+someone like you!! your expertise and leadership qualities are tremondous!!
+
+Once again, thank you for everything you’ve done. I look forward to continuing to learn from you and working together on future projects.
