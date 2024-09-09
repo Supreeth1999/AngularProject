@@ -25,4 +25,44 @@ Test Plan:
 
 
 
+
+===============================
+import { Component } from '@angular/core';
+import { DomSanitizer, SecurityContext } from '@angular/platform-browser';
+
+export class LocationModel {
+  affiliate: string;
+  zipcode: string;
+  phoneNumber: string;
+  branchNumber: number;
+}
+
+@Component({
+  selector: 'app-location',
+  templateUrl: './location.component.html'
+})
+export class LocationComponent {
+  location: LocationModel;
+  editlocation: LocationModel;
+
+  constructor(private sanitizer: DomSanitizer) {}
+
+  // Method to sanitize user-controllable fields in the location object
+  sanitizeLocationData() {
+    this.location.affiliate = this.sanitizer.sanitize(SecurityContext.HTML, this.location.affiliate) || '';
+    this.location.zipcode = this.sanitizer.sanitize(SecurityContext.HTML, this.location.zipcode) || '';
+    this.location.phoneNumber = this.sanitizer.sanitize(SecurityContext.HTML, this.location.phoneNumber) || '';
+    this.location.branchNumber = this.sanitizer.sanitize(SecurityContext.HTML, String(this.location.branchNumber)) || '';
+  }
+
+  ngOnInit() {
+    // Sanitize the data before assigning it to editlocation
+    this.sanitizeLocationData();
+    this.editlocation = Object.create(this.location);
+  }
+}
+
+
+
+
 12. Checking or saving with credit card
