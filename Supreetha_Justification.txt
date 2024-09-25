@@ -1,0 +1,29 @@
+Hi Rajeev,
+
+The Current OCC application okta migartion code only gets admin entitlements from okta
+and doesn't depends on g.et.rtl.occ.* entitlements (g.et.rtl.occ.retail,g.et.rtl.occ.rds,g.et.rtl.occ.crdcntr,g.et.rtl.occ.pvt) from Okta.
+
+As we discussed, In part-1 of OCC okta migration we are just using employee ID and not g.et.rtl.occ.* entiltments from okta.
+That Employee ID passed to LDAP to retrieve et.rtl.occ.* entitlements and occ code supports that and has et.rtl.occ.* reference.
+
+screenshot:
+
+
+As part of optimization, We discussed that ED is the source for these entitlements,
+LDAP and okta are two agents which were fetching data drom same source, let's eliminate LDAP dependency and move to okta to get the all entitlements.
+When we discussed this with okta team we got to know that et.rt.occ.* can't be imported we need to have g.* groups, on that note we created g.et.rtl.occ.* groups in non pros and mirroerd the user and started POC.
+As the LOE of complete elimination of LDAP was high, we planned to give in next release.
+
+1.For Cookies and Cream release we have given part-1 of OCC Okta and OCC code didn't depend on "g.et.rtl.occ.*" entitlements we didn't place mirroring request.
+2.When non prod mirroring request completed we have observed that existing entitlement et.rtl.occ.* impacted as shown below, So to not to disturb existing prod entitlemts we have not submitted mirror request.
+
+
+What was cause for prod "user not assigned to application error".
+
+1.All the user of OCC should be imported in Okta.
+
+Data: Non prod testing without new groups.(date of g. mirroring request)
+One user without g. entitements.
+
+
+
