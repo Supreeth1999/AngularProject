@@ -1,0 +1,15 @@
+Role code
+
+// Separate admin and non-admin roles using Java 8 streams
+		        Set<String> adminRoles = directoryGroups.stream()
+		                .filter(group -> group.toLowerCase().contains("admin"))
+		                .collect(Collectors.toSet());
+
+		        Set<String> nonAdminRoles = removeAdminRoles(directoryGroups, adminRoles);
+	}
+		        
+		        public static Set<String> removeAdminRoles(Set<String> directoryGroups, Set<String> adminRoles) {
+		            Set<String> nonAdminRoles = new HashSet<>(directoryGroups);  // Copy of the original set
+		            nonAdminRoles.removeAll(adminRoles);  // Remove all admin roles
+		            return nonAdminRoles;
+		        }
