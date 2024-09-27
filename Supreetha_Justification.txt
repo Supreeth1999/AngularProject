@@ -27,3 +27,68 @@ One user without g. entitements.
 
 
 
+package com.sample;
+
+import java.util.*;
+
+public class Sample {
+
+		public static void main(String[] args) {
+			// TODO Auto-generated method stub
+	/*		Set<String> directorygroups = new HashSet<String>();
+			directorygroups.add("g.occAdmin");
+			directorygroups.add("g.occDMOfferAdmin");
+			directorygroups.add("g.et.rtl.occ.retail");
+			directorygroups.add("g.et.rtl.occ.rds");
+			directorygroups.add("g.et.rtl.occ.pvt");
+			directorygroups.add("g.et.rtl.occ.crdcntr");
+
+			System.out.println("directory group values: " + directorygroups);
+			
+			Set<String> adminroles = new HashSet<String>();
+			adminroles.add("g.occAdmin");*/
+			
+
+			        // Initial set of directory groups
+			        Set<String> directoryGroups = new HashSet<>();
+			        directoryGroups.add("g.occadmin");
+			        directoryGroups.add("ocADMIN");
+			        directoryGroups.add("g.et.rtl.occ.retail");
+			        directoryGroups.add("g.occDMOfferAdmin");
+			        directoryGroups.add("g.et.rtl.occ.pvt");
+			        directoryGroups.add("g.et.rtl.occ.crdcntr");
+			        directoryGroups.add("g.et.rtl.occ.rds");
+
+			        // Sets to hold admin and non-admin roles
+			        Set<String> adminRoles = new HashSet<>();
+			        Set<String> nonAdminRoles = new HashSet<>();
+
+			        // Separate admin and non-admin roles
+			        for (String group : directoryGroups) {
+			            if (isAdminRole(group)) {
+			                adminRoles.add(group);
+			            } else {
+			                nonAdminRoles.add(group);
+			            }
+			        }
+
+			        // Print out the sets
+			        System.out.println("Admin Roles: " + adminRoles);
+			        System.out.println("Non-Admin Roles: " + nonAdminRoles);
+			    }
+
+			    // Helper function to determine if the role is an admin role
+			    private static boolean isAdminRole(String group) {
+			        return group.toLowerCase().contains("admin");
+			    }
+			
+
+			
+
+			
+			
+
+		
+	}
+
+
