@@ -1,0 +1,55 @@
+Hi Meghana,
+
+Can you please add use story for the given analysis task, update all the relavant information accordingly and kindly ensure it gets reviewed at your earliest convenience.
+
+Thanks,
+Supreetha
+
+Hi Sonia,
+
+As you attended Vamsi’s KT session on work handover, could you please review the pending tasks and ensure smooth delivery of the remaining tasks.
+
+Your attention to this is much appreciated!
+
+Thanks,
+Supreetha
+
+
+Hi Ranjtha,
+
+Please verify Prod and non prod helathcheck and application jvm's state and notify team, if you found any healthcheck failure!
+
+Thanks,
+Supreetha
+
+
+Hi Harish,
+
+As we discussed could you please block the calender for countersign application service call KT.
+
+Thanks,
+Supreetha
+
+Hi Bhaskar,
+
+We are currently facing challenges in tracking logs in the non-production environment using PuTTY. Particularly for applications like Bolt, Countersign, and ApplyHub we are unable to check these logs in Rassa.
+
+We are aware that you are working with Pyarajan on this issue. Could you please involve the team in the ongoing email chain to ensure everyone is aligned and can contribute to a resolution?
+
+Thanks,
+Supreetha
+
+Hi Venkat,
+
+Plesae schedule workhandover KT and drop a brief mail on current and pending task details!
+
+Happy vacation in advance!
+
+Thanks,
+Supreetha
+
+
+
+
+
+
