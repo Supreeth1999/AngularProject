@@ -21,3 +21,4 @@ private String getSessionId() {
         }
         return null; // Return null if session ID is not available
     }
+  String afterSessionId = getSessionId();
