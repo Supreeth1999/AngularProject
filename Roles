@@ -13,3 +13,11 @@ Role code
 		            nonAdminRoles.removeAll(adminRoles);  // Remove all admin roles
 		            return nonAdminRoles;
 		        }
+=============================================================================================
+private String getSessionId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getDetails() instanceof WebAuthenticationDetails) {
+            return ((WebAuthenticationDetails) authentication.getDetails()).getSessionId();
+        }
+        return null; // Return null if session ID is not available
+    }
