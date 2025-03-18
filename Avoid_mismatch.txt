@@ -1,0 +1,44 @@
+Hi Team,
+
+We have implemented a logic in FNA to detect any mismatch between the authenticated employee and the actual user accessing the application.
+If a mismatch is identified,the operation will be interrupted, and the user will be redirected to a technical difficulty page.
+
+Logic:
+Validate the authentication model data against the principal set during the init method.
+
+Implementation:
+
+If a mismatch is detected:
+Create an audit record in TFN_EXCTN_HISTORY with all relevant details.
+Throw a custom exception.
+Redirect the user to the technical difficulty page.
+
+As part of this change below 3 LD flags are created.
+
+
+LD flag : Default status: Comment
+When this flag is enabled, the entrance filter logic will be executed, which includes:
+Clearing the Wicket session
+Clearing the servlet session
+Resetting the SecurityContextHolder (authentication model)
+
+Flag 2: Enabling this flag will trigger an existing logic (not newly introduced) during the FNA page load, which clears the HTTP session.
+
+Flag 3: Enabling this flag will activate the logic to display the technical difficulty page.
+
+Testing area:
+
+Turning off flag 1 and turning on flag2 and flag 3.
+
+Turning on flag1, flag3 and turing off flag2.
+
+pending test scenario: turning on flag1, flag2 turn off flag3.
+
+Testing scope: Maintaince flow and account origination will be covered.
+
+Need to verify appointment creation and sales activity in FNA to ensure the logic covers these test cases.
+
+challenges: LD interfaces setup needed for offshore to remove onshore dependency.
+
+To set appointments or sales activity need entitlement or resource.
+
