@@ -1,0 +1,62 @@
+Task from Rajeev:
+
+Flag status vs log details.
+Appointment schedule happens in follow up and referral-Would it invoke getrecommendation method where check has written.
+While having audit record: Audit message should be Current principal in calss A is 123 and principal in init is 456.
+
+Nathan task:
+Write this logic in centralized place lets say sessiondatamanager support and call it wherever chk needed.
+Add audit record with exception let's say instaiate exception.
+
+
+private void createAuditRecord(String message) {
+    StackTraceElement caller = new Exception().getStackTrace()[2];  
+    String callerClass = caller.getClassName();  
+    String callerMethod = caller.getMethodName();
+
+    System.out.println("Audit record: " + message + " | Called from: " + callerClass + " | Method: " + callerMethod);
+}
+1. new Exception()
+Creates a new Exception object without throwing it.
+Java exceptions capture the current method call stack when they are created.
+2. .getStackTrace()
+Retrieves an array of StackTraceElement objects, representing the current call stack.
+Each StackTraceElement in this array stores details about a method call, including:
+The class name that contains the method.
+The method name that was executed.
+The line number where the method was called.
+3. [2] (Accessing the Correct Caller)
+The call stack is ordered from most recent call to oldest.
+The index [0] → The method where new Exception() was created (createAuditRecord() in this case).
+The index [1] → The method that called createAuditRecord() (getRecommendation()).
+The index [2] → The actual caller of getRecommendation() (which could be A, B, C, or D).
+4. StackTraceElement caller
+Captures the specific StackTraceElement corresponding to the class and method that called getRecommendation().
+================================================================================================================
+public void getRecommendation() {
+    // Capture caller details
+    StackTraceElement caller = new Exception().getStackTrace()[2];  
+    String callerClass = caller.getClassName();
+    String callerMethod = caller.getMethodName();
+
+    // Define error message
+    String errormsg = "Principal mismatch between principal";
+
+    // Format message to include caller details
+    String auditMessage = errormsg + " | Called from: " + callerClass + " | Method: " + callerMethod;
+
+    // Call createAuditRecord with single string
+    createAuditRecord(auditMessage);
+
+    // Throw exception for unauthorized access
+    throw new BadCredentialsException("Unauthorized access");
+}
+
+private void createAuditRecord(String message) {
+    // Log or save audit record
+    System.out.println("Audit record: " + message);
+
+    // You can replace this with database insert logic if needed
+}
+
+
