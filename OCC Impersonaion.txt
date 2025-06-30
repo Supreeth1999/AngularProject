@@ -1,0 +1,138 @@
+
+Hi Rajeev,
+
+To tackle impersonation issue in OCC application we have followed below design approach:
+
+Logic: Check between initial Okta authenticated user and Secuiy context authenticated user.
+
+1.Actual user: Initial Okta authenticated user will be equivalent of FNA request parameter (Similar approach of FNA where principal on init was equivalnt ACE input employee).
+
+Supporting confirmation : During impersonation we never messed uo with role reason to retrieve user role we always passed initial okat authenticated,
+so we application alwayas processed with actual user role.
+
+2. Imperonated User : Security context which is threadlocal and fluctuating.
+
+3. Added check in UserAuthorizationDetails model getUserEmployeeID() 
+
+if (actual user == impersonated user) return employeeid;
+else land user to tech difficuly page;
+
+4. Record Wrong Auth audit and exception stack trace in DB for monitoring purpose.
+
+
+Note : currently getUserEmployeeID method used in below functionality
+
+1. OCC launch
+2. Account details page: Selling Employee Id prepopulate field.
+2. Countetsign Launch.
+4. Application sbmission to BCPAS
+5. Database entries like (X_UPDT,X_INSRT,T_USER etc)
+
+The in detail test document with scenario document attached here for reference.
+
+
+
+
+Here’s a refined and professional version of your email to Rajeev (your Business Analyst). It improves clarity, structure, grammar, and tone:
+
+---
+
+OCC Application – Impersonation Handling Design Summary- Part 1
+
+Hi Rajeev,
+
+To address the impersonation issue in the OCC application, we have implemented the following design approach:
+
+Design Logic
+
+We perform a check between the initially authenticated Okta user and the currently authenticated user from the Security Context (thread-local).
+
+1. Actual User
+
+* The initial Okta-authenticated user is treated as the actual user. It will be equivalent of FNA-OCC "Employee ID" request parameter.
+* This is similar to the FNA design, where the principal on initialization was equivalent to the ACE input employee.
+Supporting Confirmation:
+  Even during impersonation, we never seen altered the role for impersonated user. The application consistently used the initially authenticated Okta user to retrieve roles.
+  Hence, role-based processing has always been done using the actual user's role.
+
+
+2. Impersonated User
+
+* The Security Context holds the impersonated user information and is dynamic (thread-local).
+
+
+3. Safeguard in Code
+
+* A validation check has been added in the `getUserEmployeeID()` method of the `UserAuthorizationDetails` model:
+
+  if (actualUser.equals(impersonatedUser)) {
+      return employeeId;
+  } else {
+      Redirect to technical difficulty page
+  }
+  
+If a mismatch is found, the user is redirected to a technical difficulty page.
+
+
+4. Monitoring & Auditing : All such mismatches are recorded in databsase.
+Wrong Auth audit logs : TOC_TRX_AUDIT
+Exception stack traces: TOC_EXCPTN_HIST
+
+Note: Usage of 'getUserEmployeeID()'
+
+The method is currently used in the following functionalities:
+
+1. OCC Launch
+2. Account Details Page (to prepopulate Selling Employee ID)
+3. Countersign Launch
+4. Application Submission to BCPAS
+5. DB Entries (e.g., `X_UPDT`, `X_INSRT`, `T_USER`, etc.)
+
+
+The detailed test scenarios and documentation are attached for your reference.
+
+
+
+Please let me know for any clarification or further details.
+
+
+============================================================================================
+OCC Application – Impersonation Handling Design Summary -Part 2: User Experience Improvements
+
+As a continuation of impersonation handling logic, this is outlines Part 2 of the initiative, focused on addressing user experience issues caused when users are redirected to the technical difficulty page.
+In such cases, the current OCC card submission session is lost, and the FNA Go button becomes disabled, disrupting the submission flow.
+
+✅ Proposed Solutions:
+1. Communication to Field Bankers
+A communication needs to be sent to field bankers instructing them to manually refresh the FNA Go button page in case of a technical difficulty in OCC, allowing them to continue the submission without restarting the entire flow from ACE → FNA → OCC.
+
+2. Code Enhancements in FNA & OCC
+Implement logic to automatically re-enable the Go button in FNA when a Wrong Auth scenario is encountered, so the user can resume submission from FNA without manual steps.
+
+
+Key Areas for Research and Implementation:
+
+*Parameter Check from OCC to FNA
+
+1.We need to confirm if there is any existing parameter sent from OCC to FNA that can be leveraged to signal the Go button state.
+
+2.We have found that "occstatus" used today in Exit Application page of occ to redirect back to FNA and update followup and status accordingly.
+
+But occ status is the request parameter, today it is tracking bcaps status if user lands into tech difficulty page before reaching submission, we might need to set up some customised status (other than AP,BK,EN,TD) like WA (Wrong Auth).
+*Code Changes in FNA:
+3. FNA should have code changes to look for occstatus as WA(Wrong Auth) and then run javascript to re enable Go button.
+
+4. Today Tech difficulty page in OCC is common for all kind of runtime exception (Nullpointer exception,ClassCastException etc).
+*Tech difficulty page customization:
+5. We might need to customize existing tech difficulty page to allowing for a refresh or redirection mechanism only incase of WrongAuthException.
+ So that other exception types will continue to land on the standard tech difficulty page.
+
+Please let us know if you have any suggestions or insights.
+
+
+
+
+
+
+
+
