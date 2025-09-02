@@ -1,0 +1,45 @@
+public class Location {
+    private String city;
+    private String address;
+    private String financialCenterNumber;
+    private String atmId;
+
+    // Pre-compiled regex for SSRF-related patterns
+    private static final java.util.regex.Pattern BLOCKED =
+        java.util.regex.Pattern.compile(
+            "(?i)(https?://|" +                                   // http:// or https://
+            "\\b((25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}" +       // IPv4 in 0–255 range
+            "(25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\b|" +              // IPv4 last octet
+            "([0-9a-f]*:[0-9a-f:]+))"                             // IPv6
+        );
+
+    private void validateInput(String value, String field) {
+        if (value == null) return;
+
+        String lower = value.toLowerCase();
+        if (BLOCKED.matcher(lower).find() || lower.contains("<script")) {
+            throw new IllegalArgumentException("Invalid " + field + " value");
+        }
+    }
+
+    public void setCity(String city) {
+        validateInput(city, "city");
+        this.city = city;
+    }
+
+    public void setAddress(String address) { 
+
+        validateInput(address, "address");
+        this.address = address;
+    }
+
+    public void setFinancialCenterNumber(String financialCenterNumber) {
+        validateInput(financialCenterNumber, "financialCenterNumber");
+        this.financialCenterNumber = financialCenterNumber;
+    }
+
+    public void setAtmId(String atmId) {
+        validateInput(atmId, "atmId");
+        this.atmId = atmId;
+    }
+}
