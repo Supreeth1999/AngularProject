@@ -9,32 +9,13 @@ Here's the expected filter order in Spring Security:
 5	Your Custom Filters (if any)	(e.g., SecurityContextDebugFilter)
 6	FilterSecurityInterceptor	Performs authorization checks.
 
+=====================
+We reviewed the current BOLT production environment for the mentioned customer, and the flow appears to be working as expected.
 
+Based on this, it does not currently indicate a test-customer-specific issue, as the same customer works fine on version 25.6.0.4.
 
+To better understand the non-production findings, could you please clarify how the issue was reproduced? Specifically, is the non-prod customer an exact replica of the production test customer (AwesomeCustomer)?
 
-Leave tracker 
-validation tracker
-oncall support tracker
-Incident tracker
-Adhooc tracker
-CHG tracker
-vulnerability tracker
-release tracker
-Copilot usage tracker
-Team shuffling-Release support
+For better alignment, it would be helpful to load an exact copy of the production test data into non-prod and validate the flow on both versions (25.6.0.4 and 25.6.0.6).
 
-
-Version one:
-Service now- Incident,PRB,USR
-
-Documentation:
-KT docs
-Workspace doc
-Entitlement docs
-
-IAR
-UTR
-
-
-
-
+If you are able to recreate an exact scenario where the flow works as expected on 25.6.0.4 but fails on 25.6.0.6, it would greatly help us isolate the root cause. Please share your observations so we can validate from our end and ensure we are reviewing the same scenario.
